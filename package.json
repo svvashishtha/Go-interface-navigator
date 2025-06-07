@@ -1,0 +1,45 @@
+{
+  "name": "go-interface-navigator",
+  "displayName": "Go Interface Navigator",
+  "description": "Navigate between Go interfaces and their implementations using CodeLens",
+  "version": "0.1.4",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "activationEvents": [
+    "onLanguage:go"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "go-interface-navigator.navigateToImplementation",
+        "title": "Go to Implementation"
+      },
+      {
+        "command": "go-interface-navigator.navigateToInterface",
+        "title": "Go to Interface"
+      }
+    ],
+    "languages": [
+      {
+        "id": "go",
+        "extensions": [
+          ".go"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "@types/vscode": "^1.60.0",
+    "typescript": "^4.5.5"
+  }
+}
