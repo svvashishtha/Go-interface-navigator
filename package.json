@@ -2,7 +2,7 @@
   "name": "go-interface-navigator",
   "displayName": "Go Interface Navigator",
   "description": "Navigate between Go interfaces and their implementations using CodeLens",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publisher": "svvashishtha",
   "license": "MIT",
   "repository": {

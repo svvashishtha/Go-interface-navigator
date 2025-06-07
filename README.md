@@ -2,6 +2,10 @@
 
 A VS Code extension that provides intelligent navigation between interface declarations and their implementations using CodeLens.
 
+## Demo
+
+![Demo](demo.gif)
+
 ## Features
 
 - Shows CodeLens indicators next to interface methods and their implementations
