@@ -48,7 +48,7 @@ This extension contributes the following settings:
 
 ## Release Notes
 
-### 0.0.1
+### 0.1.4
 
 Initial release of Method Navigator:
 - CodeLens-based navigation between interfaces and implementations
