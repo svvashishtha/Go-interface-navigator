@@ -3,10 +3,32 @@
   "displayName": "Go Interface Navigator",
   "description": "Navigate between Go interfaces and their implementations using CodeLens",
   "version": "0.1.4",
+  "publisher": "svvashishtha",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/svvashishtha/Go-interface-navigator.git"
+  },
+  "homepage": "https://github.com/svvashishtha/Go-interface-navigator#readme",
+  "bugs": {
+    "url": "https://github.com/svvashishtha/Go-interface-navigator/issues"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "go",
+    "golang",
+    "interface",
+    "implementation",
+    "navigation",
+    "codelens"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#C80000",
+    "theme": "dark"
   },
   "engines": {
     "vscode": "^1.60.0"
