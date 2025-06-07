@@ -4,7 +4,7 @@ A VS Code extension that provides intelligent navigation between interface decla
 
 ## Demo
 
-![Demo](demo.gif)
+![Demo](Demo.gif)
 
 ## Features
 
