@@ -51,6 +51,8 @@ This extension contributes the following settings:
 - Navigation is limited to the current file
 
 ## Release Notes
+### 0.1.6
+- Added a demo gif
 
 ### 0.1.4
 
