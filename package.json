@@ -4,6 +4,10 @@
   "description": "Navigate between Go interfaces and their implementations using CodeLens",
   "version": "0.1.4",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/svvashishtha/Go-interface-navigator.git"
+  },
   "engines": {
     "vscode": "^1.60.0"
   },
