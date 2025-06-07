@@ -1,0 +1,12 @@
+node_modules
+.vscode
+.git
+.gitignore
+*.map
+*.ts
+README.md
+.vscodeignore
+package-lock.json
+test
+coverage
+images/*.psd 
