@@ -17,10 +17,34 @@ export function activate(context: vscode.ExtensionContext) {
             );
 
             if (locations && locations.length > 0) {
-                vscode.window.showTextDocument(locations[0].uri, {
-                    selection: locations[0].range
-                });
-                return;
+                if (locations.length === 1) {
+                    // Single implementation found, navigate directly
+                    vscode.window.showTextDocument(locations[0].uri, {
+                        selection: locations[0].range
+                    });
+                    return;
+                } else {
+                    // Multiple implementations found, show selection dialog
+                    const selected = await vscode.window.showQuickPick(
+                        locations.map((loc, i) => {
+                            // Extract file name and line number for better display
+                            const fileName = loc.uri.fsPath.split('/').pop() || loc.uri.fsPath;
+                            const lineNumber = loc.range.start.line + 1;
+                            return {
+                                label: `${i + 1}. ${fileName}:${lineNumber}`,
+                                description: loc.uri.fsPath,
+                                location: loc
+                            };
+                        }),
+                        { placeHolder: 'Select implementation to navigate to' }
+                    );
+                    if (selected) {
+                        vscode.window.showTextDocument(selected.location.uri, {
+                            selection: selected.location.range
+                        });
+                    }
+                    return;
+                }
             }
 
             // Fallback: search across workspace
