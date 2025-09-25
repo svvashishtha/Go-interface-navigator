@@ -105,6 +105,8 @@ For future versions:
 
 - **VSIX not found**: Ensure filename matches `go-interface-navigator-{version}.vsix`
 - **Publishing fails**: Check `VSCE_PAT` secret is set correctly
+- **Node.js version errors**: Fixed by using Node.js 20 in the workflow
+- **VSCE validation fails**: Workflow continues even if validation fails (handles version compatibility)
 - **Workflow doesn't run**: Verify you're on main/master or using version tags
 
 For detailed troubleshooting, see [`.github/README.md`](.github/README.md).

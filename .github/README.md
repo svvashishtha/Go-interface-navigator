@@ -83,7 +83,15 @@ The workflow runs on:
    - Ensure the PAT has Marketplace (Publish) permissions
    - Verify you're the publisher or have publish rights
 
-3. **Workflow doesn't trigger**
+3. **Node.js version errors**
+   - The workflow uses Node.js 20 to ensure compatibility with latest vsce
+   - If you see "Unsupported engine" errors, this should be resolved with Node.js 20
+
+4. **VSCE validation fails**
+   - The workflow will attempt validation but proceed even if it fails
+   - This handles compatibility issues between vsce versions
+
+5. **Workflow doesn't trigger**
    - Check that you're pushing to main/master branch or using version tags
    - Ensure the workflow file is in `.github/workflows/` directory
 
