@@ -36,9 +36,10 @@ echo "📦 Packaging extension..."
 vsce package
 
 # Check if packaging was successful
-if [ -f "*.vsix" ]; then
+VSIX_FILE=$(ls *.vsix 2>/dev/null | head -n 1)
+if [ -n "$VSIX_FILE" ]; then
     echo "✅ Extension packaged successfully!"
-    echo "📁 Extension file: $(ls *.vsix)"
+    echo "📁 Extension file: $VSIX_FILE"
     echo ""
     echo "To install the extension:"
     echo "1. Open VS Code"
@@ -51,4 +52,4 @@ if [ -f "*.vsix" ]; then
 else
     echo "❌ Packaging failed. No .vsix file found."
     exit 1
-fi 
+fi

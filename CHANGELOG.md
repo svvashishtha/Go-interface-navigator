@@ -15,3 +15,7 @@ All notable changes to the "Go Interface Navigator" extension will be documented
 - Two-way navigation support (interface to implementation and vice versa)
 - Support for Go files
 - Visual feedback for missing implementations 
+
+
+## [0.1.7] - 2025-06-07
+- Added cross-file interface search functionality

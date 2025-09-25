@@ -1,12 +1,62 @@
+# Dependencies
 node_modules
-.vscode
+package-lock.json
+yarn.lock
+
+# Source files (only include compiled .js files)
+src/**/*.ts
+*.ts
+!out/**/*.js
+
+# Development files
+.vscode-test/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# Build and development
+*.map
+*.tsbuildinfo
+test/
+coverage/
+.nyc_output/
+
+# Documentation (optional - remove if you want to include)
+# README.md
+# CHANGELOG.md
+
+# Git and ignore files
 .git
 .gitignore
-*.map
-*.ts
-README.md
 .vscodeignore
-package-lock.json
-test
-coverage
-images/*.psd 
+
+# IDE files
+*.swp
+*.swo
+*~
+
+# Image source files
+images/*.psd
+images/*.ai
+images/*.sketch
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Environment
+.env
+.env.local
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Scripts (optional - remove if you want to include)
+package-extension.sh
+Makefile
