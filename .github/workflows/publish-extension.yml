@@ -1,0 +1,106 @@
+name: Publish VS Code Extension
+
+on:
+  push:
+    branches: [ main, master ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  check-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Get package version
+      id: package-version
+      run: |
+        VERSION=$(node -p "require('./package.json').version")
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Package version: $VERSION"
+        
+    - name: Check if VSIX file exists
+      id: check-vsix
+      run: |
+        EXPECTED_VSIX="go-interface-navigator-${{ steps.package-version.outputs.version }}.vsix"
+        echo "Expected VSIX file: $EXPECTED_VSIX"
+        
+        if [ -f "$EXPECTED_VSIX" ]; then
+          echo "✅ VSIX file found: $EXPECTED_VSIX"
+          echo "vsix-exists=true" >> $GITHUB_OUTPUT
+          echo "vsix-file=$EXPECTED_VSIX" >> $GITHUB_OUTPUT
+        else
+          echo "❌ VSIX file not found: $EXPECTED_VSIX"
+          echo "Available files:"
+          ls -la *.vsix 2>/dev/null || echo "No .vsix files found"
+          echo "vsix-exists=false" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+        
+    - name: Validate VSIX file
+      if: steps.check-vsix.outputs.vsix-exists == 'true'
+      run: |
+        # Install vsce to validate the package
+        npm install -g @vscode/vsce
+        
+        # Verify the VSIX file is valid
+        echo "Validating VSIX file..."
+        vsce show ${{ steps.check-vsix.outputs.vsix-file }}
+        
+    - name: Publish to VS Code Marketplace (Dry Run)
+      if: steps.check-vsix.outputs.vsix-exists == 'true' && github.event_name == 'pull_request'
+      run: |
+        echo "🔍 This is a pull request - performing dry run only"
+        echo "Would publish: ${{ steps.check-vsix.outputs.vsix-file }}"
+        npm install -g @vscode/vsce
+        echo "Dry run validation passed ✅"
+        
+    - name: Publish to VS Code Marketplace
+      if: steps.check-vsix.outputs.vsix-exists == 'true' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v'))
+      env:
+        VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      run: |
+        if [ -z "$VSCE_PAT" ]; then
+          echo "❌ VSCE_PAT secret is not set. Cannot publish to marketplace."
+          echo "Please add your Visual Studio Code Personal Access Token as a repository secret named 'VSCE_PAT'"
+          exit 1
+        fi
+        
+        npm install -g @vscode/vsce
+        
+        echo "🚀 Publishing extension to VS Code Marketplace..."
+        vsce publish --packagePath ${{ steps.check-vsix.outputs.vsix-file }}
+        echo "✅ Extension published successfully!"
+        
+    - name: Create GitHub Release
+      if: steps.check-vsix.outputs.vsix-exists == 'true' && startsWith(github.ref, 'refs/tags/v')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ steps.check-vsix.outputs.vsix-file }}
+        generate_release_notes: true
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload VSIX as artifact
+      if: steps.check-vsix.outputs.vsix-exists == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: vsix-extension-v${{ steps.package-version.outputs.version }}
+        path: ${{ steps.check-vsix.outputs.vsix-file }}
+        retention-days: 30
