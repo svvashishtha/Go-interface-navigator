@@ -82,8 +82,6 @@ vsce publish --packagePath go-interface-navigator-{version}.vsix
 See [`.github/README.md`](.github/README.md) for detailed GitHub Actions setup and troubleshooting.
 
 ## Release Notes
-### 0.1.6
-- Added a demo gif
 
 ### 0.1.7
 - Added cross-file interface search functionality
@@ -102,3 +100,7 @@ Initial release of Method Navigator:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
+
+
+## TODO
+- Add a step in GitHub Actions to publish it to the OpenVSX registry as well.
